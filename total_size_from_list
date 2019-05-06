@@ -1,0 +1,22 @@
+#!/usr/bin/python3
+## matt is a pimp, gareth is a trick ##
+import os
+import time
+import datetime
+import humanize
+
+err = open("/file/path/list_not_found.out", "a")
+
+tot_size = 0
+print ("Start file size total: " , datetime.datetime.now())
+with open('/file/path/list') as fh:
+    for file in fh:
+        try:
+            sz = os.stat(file.strip())[6]
+            tot_size += sz
+        except FileNotFoundError:
+            err.write(file + " does not exist")
+tot_size=humanize.naturalsize(tot_size)
+print(tot_size)
+print ("Finished file size total: " , datetime.datetime.now())
+err.close()
